@@ -1,0 +1,8 @@
+server:
+  port: 18081
+
+
+chat:
+  database:
+    user: root
+    pwd: LgElb191001.#mysql

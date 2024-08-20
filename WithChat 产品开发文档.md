@@ -76,6 +76,54 @@
 - 单体消息：指单个用户对单个用户之间的消息收发
 - 
 
+## 环境搭建
+
+### 容器
+
+#### 网络环境
+
+网络名称为 withchat-net。
+
+```SQL
+docker network create withchat-net
+docker network inspect withchat-net
+```
+
+#### MySQL
+
+##### 启动参数
+
+注：如非 ARM 平台，需删除 --platform 一行
+
+```Plain
+docker run -d \
+  --name mysql \
+  --platform=linux/amd64 \
+  -p 3306:3306 \
+  -e TZ=Asia/Shanghai \
+  -e MYSQL_ROOT_PASSWORD=chatdev \
+  -v /Volumes/Documents/ShareToContainer/withchat/mysql/data:/var/lib/mysql \
+  -v /Volumes/Documents/ShareToContainer/withchat/mysql/init:/docker-entrypoint-initdb.d \
+  -v /Volumes/Documents/ShareToContainer/withchat/mysql/config:/etc/mysql/conf.d \
+  --restart always \
+  mysql
+```
+
+##### 映射配置文件
+
+```SQL
+[client]
+default_character_set=utf8mb4
+[mysql]
+default_character_set=utf8mb4
+[mysqld]
+character_set_server=utf8mb4
+collation_server=utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4'
+```
+
+#### Nginx
+
 # 需求分析
 
 ## 角色
@@ -163,11 +211,33 @@
 
 - 待定
 
+# 数据库设计
+
+## 用户表
+
+| 字段名   | 字段类型     | 主键约束 | 非空约束 | 唯一约束 | 默认值 | 备注                         |
+| :------- | :----------- | :------- | :------- | :------- | :----- | :--------------------------- |
+| uid      | int          | 1        | 1        | 1        |        | 用户 ID，自增，从 10000 开始 |
+| nickname | varchar(50)  |          | 1        |          |        | 用户昵称                     |
+| u_sig    | varchar(255) |          |          |          |        | 用户个性签名                 |
+| u_avatar | varchar(255) |          |          |          |        | 用户头像（地址）             |
+| u_pwd    | varchar(255) |          | 1        |          |        | 用户密码（非对称加密）       |
+| disable  | char(1)      |          | 1        |          | 1      | 是否启用：0-启用，1-停用     |
+
+## 管理员表
+
+| 字段名     | 字段类型     | 主键约束 | 非空约束 | 唯一约束 | 默认值 | 备注                         |
+| :--------- | :----------- | :------- | :------- | :------- | :----- | :--------------------------- |
+| aid        | int          | 1        | 1        | 1        |        | 管理员 ID，自增，从 100 开始 |
+| admin_name | varchar(50)  |          | 1        |          |        | 管理员名称                   |
+| a_pwd      | varchar(255) |          | 1        |          |        | 管理员密码（非对称加密）     |
+| disable    | char(1)      |          | 1        |          | 1      | 是否启用：0-启用，1-停用     |
+
 # 功能分析
 
 ## 管理员基本信息管理
 
-## 管理员任务姑那里
+## 管理员任务管理
 
 ## 用户管理
 

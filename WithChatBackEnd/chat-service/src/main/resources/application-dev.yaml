@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+
+chat:
+  database:
+    user: root
+    pwd: chatdev
+    url: 172.20.0.2
+    db: with_chat
