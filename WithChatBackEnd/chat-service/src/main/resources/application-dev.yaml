@@ -7,4 +7,10 @@ chat:
     user: root
     pwd: chatdev
     url: 172.20.0.2
-    db: with_chat
+    db: withchat
+
+  minio:
+    bucket: withchat-dev
+    access: Pqag5oXJTtYmKebKWVEj
+    secret: Rk3OoMU1Ot5EYpCu0GzLebeFbDirTvF5MOPRBxV0
+    endpoint: http://172.20.0.3:9000

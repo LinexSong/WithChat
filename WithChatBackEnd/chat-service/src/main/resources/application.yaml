@@ -7,5 +7,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${chat.database.user}
     password: ${chat.database.pwd}
-    url: jdbc:mysql://${chat.database.url}:3306/${chat.database.db}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${chat.database.url}:3306/${chat.database.db}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
 
+mybatis-plus:
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.linex: debug

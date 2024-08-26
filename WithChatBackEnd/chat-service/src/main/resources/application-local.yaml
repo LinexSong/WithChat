@@ -6,3 +6,5 @@ chat:
   database:
     user: root
     pwd: LgElb191001.#mysql
+    db: with_chat
+    url: 127.0.0.1

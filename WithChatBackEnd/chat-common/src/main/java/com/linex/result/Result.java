@@ -1,4 +1,4 @@
-package com.linex.vo;
+package com.linex.result;
 
 import com.linex.enums.Status;
 import lombok.AllArgsConstructor;
